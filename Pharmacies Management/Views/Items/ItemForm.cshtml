@@ -1,0 +1,31 @@
+﻿@using PharmaciesManagement.ViewModels;
+@model ItemViewModel
+
+@{
+    ViewData["Title"] = "إنشاء صنف";
+}
+<h2>@(Model.Id > 0 ? "تعديل" : "إنشاء") صنف</h2>
+<hr />
+<section class="row">
+    <div class="col-md-4">
+        <form method="Post" asp-action="@(Model.Id > 0 ? "Edit" : "Create")">
+            <input type="hidden" asp-for="Id" />
+             <div class="form-group">
+                <label class="text-muted" asp-for="Name"></label>
+                <input type="datetime" class="form-control" asp-for="Name" maxlength="250" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-primary mt-4">
+                <i class="bi bi-check"></i>
+                حفظ
+            </button>
+            <a asp-action="Index" class="btn btn-outline-secondary mt-4">
+                <i class="bi bi-x"></i>
+                إلغاء
+            </a>            
+        </form>
+
+    </div>
+
+</section>
+

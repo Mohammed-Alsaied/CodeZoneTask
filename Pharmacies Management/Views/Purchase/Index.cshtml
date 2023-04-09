@@ -1,0 +1,72 @@
+﻿@using PharmaciesManagement.Models;
+@model IEnumerable<Purchase>
+@inject ApplicationDbContext _context;
+@{
+    ViewData["Title"] = "المشتريات";
+}
+<h2>
+    <i class="bi bi-shop"></i>
+    المشتريات
+</h2>
+<hr />
+<a class="btn btn-primary" asp-action="Create"><i class="bi bi-plus"></i>
+     أضف</a>
+<div class="mt-4">
+    @if (Model == null)
+    {
+        <div class="alert alert-warning" role="alert">
+            <i class="bi bi-exclamation-triangle"></i>
+            لا يوجد مشتريات!
+        </div>
+    }
+    else
+    {
+        <table id="datatable" class="table table-hover table-striped" cellspacing="0" width="100%">
+            <thead>
+                <tr class="text-center">
+                    <th class="th-sm text-center">التاريخ</th>
+                    <th class="th-sm text-center">الفرع</th>
+                    <th class="th-sm text-center">الصنف</th>
+                    <th class="th-sm text-center">الكمية</th>
+                    <th class="th-sm text-center">العمليات</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var purchase in Model)
+                {
+
+                    <tr class="text-center tbl">
+                        <td>@purchase.Date</td>
+                        <td>@(
+                                _context.Stores.Where(s => s.Id == purchase.StoreId).Select(b => new { b.Branch }).FirstOrDefault().Branch
+                            )
+                        </td>
+
+                        <td>
+                            @(
+                                _context.Items.Where(i => i.Id == purchase.ItemId).Select(i => new { i.Name }).FirstOrDefault().Name
+                                )
+                        </td>
+                             <td>@purchase.Quantity</td>
+                            <td>
+                                <a href="javascript:;" class="btn btn-danger js-delete-purchase" data-id="@purchase.Id">
+                                    <i class="bi bi-trash"></i>
+                                    حذف
+                                </a>
+                            </td>
+                        </tr>
+
+                }
+                </tbody>
+            <tfoot>
+                <tr class="text-center">
+                    <th>التاريخ</th>
+                    <th>الفرع </th>
+                    <th>الصنف</th>
+                    <th>الكمية</th>
+                    <th>العمليات</th>
+                </tr>
+            </tfoot>
+            </table>
+    }
+</div>

@@ -1,0 +1,41 @@
+﻿@using PharmaciesManagement.Models;
+@model IEnumerable<Store>
+@{
+    ViewData["Title"] = "الفروع";
+}
+<h2>
+    <i class="bi bi-shop"></i>
+    الفروع
+</h2>
+<hr />
+<a class="btn btn-primary" asp-action="Create"><i class="bi bi-plus"></i>
+    إضافة فرع</a>
+<div class="mt-4">
+    @if (Model == null)
+    {
+        <div class="alert alert-warning" role="alert">
+            <i class="bi bi-exclamation-triangle"></i>
+            لا يوجد فروع!
+        </div>
+    }
+    else
+    {
+        @foreach (var store in Model)
+        {
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">@store.Branch</h5>
+                    <br>
+                    <a asp-action="Edit" asp-route-id="@store.Id" class="btn btn-outline-primary card-link"><i class="bi bi-pencil"></i>
+                        تعديل
+                    </a>
+                    <a href="javascript:;" class="btn btn-danger js-delete-store" data-id="@store.Id">
+                            <i class="bi bi-trash"></i>
+                            حذف
+                     </a>
+                </div>
+
+            </div>
+        }
+    }
+</div>
